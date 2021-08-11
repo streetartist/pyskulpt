@@ -1,3 +1,18 @@
+from metapensiero.pj.__main__ import transform_string
+
+import inspect
+
+def get_source(func):  
+    code=""
+    first = True
+    for line in inspect.getsourcelines(func)[0][2:]:
+        if first:
+            code+=line[4:]
+            first=False
+        else:
+            code+=line
+    return code
+
 def del_waste(self, wastes):
     waste = ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__',
 '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'build', 'generate',]
@@ -24,12 +39,14 @@ var $builtinmodule = function (name) {{
         '''.format(name=self.name)
 
     def generate():
+        '''
         func_code = ""
         elements = self.build() if self.build() != None else del_waste(self, dir(self))
         for element in elements:
-            func_code += element.convert()
+            func_code += transform_string(get_source(element.convert()))
+        '''
 
-        self.maincode=self.maincode.format(func=func_code)
+        self.maincode=self.maincode.format(func=transform_string(get_source(self.build)))
 
         return self.maincode
  
