@@ -31,4 +31,5 @@ var $builtinmodule = function (name) {{
 
         self.maincode=self.maincode.format(func=func_code)
 
+        return self.maincode
  
