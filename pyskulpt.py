@@ -30,23 +30,15 @@ def del_waste(self, wastes):
 class Module:
     def __init__(self, name):
         self.name = name
+        
+
+    def generate(self):
         self.maincode='''
 var $builtinmodule = function (name) {{
-	var mod = {{__name__: new Sk.builtin.str("{name}")}}
-        {func}
-	return mod;
+    var mod = {{__name__: new Sk.builtin.str("{name}")}}
+    {func}
+    return mod;
 }}
-        '''.format(name=self.name)
-
-    def generate():
-        '''
-        func_code = ""
-        elements = self.build() if self.build() != None else del_waste(self, dir(self))
-        for element in elements:
-            func_code += transform_string(get_source(element.convert()))
-        '''
-
-        self.maincode=self.maincode.format(func=transform_string(get_source(self.build)))
+        '''.format(name=self.name,func=transform_string(get_source(self.build)))
 
         return self.maincode
- 
