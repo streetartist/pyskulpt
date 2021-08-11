@@ -24,7 +24,10 @@ var $builtinmodule = function (name) {{
         '''.format(name=self.name)
 
     def generate():
-        func_code = self.build() if self.build() != None else del_waste(self, dir(self))
+        func_code = ""
+        elements = self.build() if self.build() != None else del_waste(self, dir(self))
+        for element in elements:
+            func_code += element.convert()
 
         self.maincode=self.maincode.format(func=func_code)
 
