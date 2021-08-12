@@ -67,11 +67,6 @@ class Parser(SlyParser):
     def params(self, p):
         return []
 
-    @_('data_type ID')
-    def param(self, p):
-        return (p.ID, p.data_type)
-
-
     @_('ANY')
     def expr(self, p):
         return None
