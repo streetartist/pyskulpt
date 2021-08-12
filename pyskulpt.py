@@ -1,5 +1,5 @@
 from metapensiero.pj.__main__ import transform_string
-
+from parse import parse
 import inspect
 
 def get_source(func):  
@@ -40,5 +40,7 @@ var $builtinmodule = function (name) {{
     return mod;
 }}
         '''.format(name=self.name,func=transform_string(get_source(self.build)))
+        
+        parse("({}),",self.maincode)
 
         return self.maincode
