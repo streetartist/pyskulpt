@@ -1,6 +1,11 @@
 from metapensiero.pj.__main__ import transform_string
 from parse import parse
 import inspect
+from parser import Parser
+from lexer import Lexer
+
+lexer = Lexer()
+parser = Parser()
 
 def get_source(func):  
     code=""
@@ -41,6 +46,8 @@ var $builtinmodule = function (name) {{
 }}
         '''.format(name=self.name,func=transform_string(get_source(self.build)))
         
-        parse("({}),",self.maincode)
-
+        #parse("({}),",self.maincode)
+        tokens = lexer.tokenize(self.maincode)
+        tree = parser.parse(tokens)
+        print(tree)
         return self.maincode
