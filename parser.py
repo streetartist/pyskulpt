@@ -68,7 +68,7 @@ class Parser(SlyParser):
         return []
 
     @_('ANY')
-    def expr(self, p):
+    def statement(self, p):
         return None
 
     @_('')
