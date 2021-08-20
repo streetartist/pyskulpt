@@ -1,3 +1,2 @@
 javascripthon
-parse
-sly
+transcrypt
