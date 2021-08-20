@@ -1,6 +1,19 @@
 from metapensiero.pj.__main__ import transform_string
 import inspect
+import sys
+import subprocess
+import re
+import os.path
+import ast
+import astunparse
 
+workdir = os.path.dirname(sys.argv[0])
+
+with open(sys.argv[0]) as f:
+    f.read()
+
+
+'''
 def get_source(func):  
     code=""
     first = True
@@ -25,7 +38,7 @@ def del_waste(self, wastes):
             production.insert(0, j)
 
     return production
-
+'''
 class Module:
     def __init__(self, name):
         self.name = name
@@ -41,3 +54,50 @@ var $builtinmodule = function (name) {{
         '''.format(name=self.name,func=transform_string(get_source(self.build)))
 
         return self.maincode
+
+
+class ReWriteName(ast.NodeTransformer):
+    def generic_visit(self, node):
+        has_lineno = getattr(node, "lineno", "None")
+        col_offset = getattr(node, "col_offset", "None")
+        print(type(node).__name__, has_lineno, col_offset)
+        ast.NodeTransformer.generic_visit(self, node)
+        return node
+
+    def visit_Name(self, node):
+        new_node = node
+        if node.id == "a":
+            new_node = ast.Name(id = "a_rep", ctx = node.ctx)
+        return new_node
+
+    def visit_Import(self, node):
+        if node.names == [ast.alias(nam='pyskulpt', asname=None)]:
+            return None
+        return node
+
+def get_code_by_transcrypt():
+    with open(workdir + "\\temp.py","w") as f:
+        with open(sys.argv[0]) as source:
+            f.write(re.sub("import pyskulpt","", source.read()))
+
+    return subprocess.run(['python','-m','transcrypt', '-n',workdir + "\\temp.py"])
+
+def get_code_by_javascripthon():
+    with open(sys.argv[0]) as source:
+        visitor = ReWriteName()
+        root = ast.parse(source.read())
+        print(astunparse.dump(root))
+        root = visitor.visit(root)
+        ast.fix_missing_locations(root)
+        new_code = astunparse.unparse(root)
+        print(new_code)
+        return transform_string(new_code)# (re.sub("import pyskulpt","", source.read()))
+
+
+def get_source():
+    with open(sys.argv[0]) as source:
+        tree =  ast.parse(source.read())
+        print(astunparse.dump(tree))
+
+print(get_code_by_javascripthon())
+print(get_source())
