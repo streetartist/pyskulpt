@@ -10,7 +10,7 @@ Use python to develop Skulpt
 
 2. 新建一个文件
 
-3.编写程序
+3. 编写程序
 
 ```python
 import pyskulpt
@@ -18,10 +18,10 @@ import pyskulpt
 
 下面正常编写程序
 
-4.运行程序
+4. 运行程序
 
-5.在同一文件夹下找到sk_文件名.js和文件名.js
+5. 在同一文件夹下找到sk_文件名.js和文件名.js
 
 ## 提示
 
-1.只能使用import pyskulpt 不能使用import pyskulpt,...
+1. 只能使用import pyskulpt 不能使用import pyskulpt,...
