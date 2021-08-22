@@ -7,6 +7,7 @@ Use python to develop Skulpt
 1. 安装pyskulpt（正在）
 
 ```pip install pyskulpt```
+
 2. 新建一个文件
 
 3.编写程序
