@@ -22,7 +22,7 @@ def get_function(code):
     
     return deflist
 
-def get_code_by_transcrypt():
+def translate_by_transcrypt():
     with open(workdir + "\\temp.py","w") as f:
         with open(sys.argv[0]) as source:
             f.write(re.sub("import pyskulpt","", source.read()))
@@ -58,3 +58,6 @@ var $builtinmodule = function (name) {{
         
     with open(workdir + "\\sk_"+ filename, "w") as f:
         f.write(library)
+
+print(translate_by_transcrypt())
+generate_library()
