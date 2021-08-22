@@ -40,7 +40,7 @@ def generate_library():
             params = ""
             for j in i[1]:
                 args += j+","
-                params += j+"="+j+","
+                params += j+"=Sk.ffi.remapToPy("+j+"),"
 
             func += '''
 {filename}.{name} = new Sk.builtin.func(function({args}) {{
