@@ -43,20 +43,20 @@ def generate_library():
                 params += j+"="+j+","
 
             func += '''
-mod.{name} = new Sk.builtin.func(function({args}) {{
+{filename}.{name} = new Sk.builtin.func(function({args}) {{
         return Sk.ffi.remapToJs({name}({params}));
     }});
-            '''.format(args=args,name=i[0],params=params)
+            '''.format(filename=filename,args=args,name=i[0],params=params)
             
         library = '''
 var $builtinmodule = function (name) {{
-    var mod = {{__name__: new Sk.builtin.str({name}")}}
+    var {name} = {{__name__: new Sk.builtin.str({name}")}}
     {func}
     return mod;
 }}
         '''.format(name=filename,func=func)
         
-    with open(workdir + "\\sk_"+ filename, "w") as f:
+    with open(workdir + "\\sk_"+ filename + ".js", "w") as f:
         f.write(library)
 
 print(translate_by_transcrypt())
