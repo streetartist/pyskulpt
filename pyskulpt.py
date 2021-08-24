@@ -6,7 +6,7 @@ import os
 from redbaron import RedBaron, DefNode, DefArgumentNode
 
 workdir = os.path.dirname(sys.argv[0])
-filename = os.path.basename(sys.argv[0])[:-3]
+filename = os.path.splitext(os.path.basename(sys.argv[0]))[0]
 
 def get_function(code):
     red = RedBaron(code)
