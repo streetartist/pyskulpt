@@ -44,14 +44,14 @@ def generate_library():
                 params += 'py_' + j+"=Sk.ffi.remapToPy("+j+"),"
 
             func += '''
-{filename}.{name} = new Sk.builtin.func(function({args}) {{
+    {filename}.{name} = new Sk.builtin.func(function({args}) {{
         return Sk.ffi.remapToJs({name}({params}));
     }});
             '''.format(filename=filename,args=args,name=i[0],params=params)
             
         library = '''
 var $builtinmodule = function (name) {{
-    var {name} = {{__name__: new Sk.builtin.str({name}")}}
+    var {name} = {{__name__: new Sk.builtin.str("{name}")}}
     {func}
     return mod;
 }}
