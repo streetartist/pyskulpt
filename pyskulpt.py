@@ -24,14 +24,14 @@ def get_function(code):
     return deflist
 
 def translate_by_transcrypt():
-    with open(workdir + os.sep + "temp.py","w") as f:
+    with open(workdir + "temp.py","w") as f:
         with open(sys.argv[0]) as source:
             f.write(re.sub("import pyskulpt","", source.read()))
 
-    return subprocess.run(['python','-m','transcrypt', '-n',workdir + os.sep + "temp.py"])
+    return subprocess.run(['python','-m','transcrypt', '-n',workdir + "temp.py"])
 
 def generate_library():
-    with open(workdir + os.sep + "temp.py","w") as f:
+    with open(workdir + "temp.py","w") as f:
         source = f.read()
         deflist = get_function(source)
         
@@ -57,7 +57,7 @@ var $builtinmodule = function (name) {{
 }}
         '''.format(name=filename,func=func)
         
-    with open(workdir + os.sep + "sk_"+ filename + ".js", "w") as f:
+    with open(workdir + "sk_"+ filename + ".js", "w") as f:
         f.write(library)
 
 print(translate_by_transcrypt())
