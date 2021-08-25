@@ -31,7 +31,7 @@ def translate_by_transcrypt():
     return subprocess.run(['python','-m','transcrypt', '-n',workdir + "temp.py"])
 
 def generate_library():
-    with open(workdir + "temp.py","w") as f:
+    with open(workdir + "temp.py","r") as f:
         source = f.read()
         deflist = get_function(source)
         
